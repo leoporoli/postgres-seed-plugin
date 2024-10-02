@@ -1,8 +1,8 @@
 import copy
 
-def create_flow(service_spec, deployment_spec, flow_uuid, seed_script, db_name, db_user, db_password):
-    modified_deployment_spec = copy.deepcopy(deployment_spec)
-    container = modified_deployment_spec['template']['spec']['containers'][0]
+def create_flow(service_spec, pod_spec, flow_uuid, seed_script, db_name, db_user, db_password):
+    modified_pod_spec = copy.deepcopy(pod_spec)
+    container = modified_pod_spec['containers'][0]
     
     # Add environment variables
     container['env'] = container.get('env', []) + [
@@ -57,7 +57,7 @@ echo "SQL script executed successfully"
     container['lifecycle'] = lifecycle
     
     return {
-        "deployment_spec": modified_deployment_spec,
+        "pod_spec": modified_pod_spec,
         "config_map": {}
     }
 
